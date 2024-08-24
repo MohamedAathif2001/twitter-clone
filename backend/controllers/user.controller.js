@@ -153,3 +153,35 @@ export const updateUser = async (req, res) => {
         res.status(500).json({ error: error.message});
     }
 }
+
+export const getFollowers = async (req, res) => {
+    try {
+        const { username } = req.params;
+        const user = await User.findOne({ username }).select("followers").populate("followers", "username profileImg");
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.status(200).json(user.followers);
+    } catch (error) {
+        console.log("error in getFollowers controller: ", error.message);
+        res.status(500).json({ error: error.message });
+    }
+}
+
+export const getFollowing = async (req, res) => {
+    try {
+        const { username } = req.params;
+        const user = await User.findOne({ username }).select("following").populate("following", "username profileImg");
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.status(200).json(user.followers);
+    } catch (error) {
+        console.log("error in getFollowers controller: ", error.message);
+        res.status(500).json({ error: error.message });
+    }
+}

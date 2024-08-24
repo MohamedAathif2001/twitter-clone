@@ -10,6 +10,7 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
+import FollowersPanel from "./components/common/FollowersPanel";
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to="/" />} />
         <Route path="notifications" element={authUser ? <NotificationPage /> : <Navigate to="/login" />} />
         <Route path="profile/:username" element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
+        <Route path="followers/:userId" element={authUser ? <FollowersPanel /> : <Navigate to="/login" />} />
       </Routes>
       {authUser && <RightPanel />}
       <Toaster />
